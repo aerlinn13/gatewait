@@ -1,0 +1,6 @@
+framework module Pods_gatewait {
+  umbrella header "Pods-gatewait-umbrella.h"
+
+  export *
+  module * { export * }
+}

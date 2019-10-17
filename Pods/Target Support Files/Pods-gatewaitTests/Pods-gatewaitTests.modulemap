@@ -1,0 +1,6 @@
+framework module Pods_gatewaitTests {
+  umbrella header "Pods-gatewaitTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
