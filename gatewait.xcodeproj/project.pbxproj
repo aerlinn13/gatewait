@@ -15,6 +15,7 @@
 		834CC62C23566F6D00B2407A /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC62B23566F6D00B2407A /* Airport.swift */; };
 		834CC62F2357BB3400B2407A /* GateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC62D2357BB3400B2407A /* GateTableViewCell.swift */; };
 		834CC6302357BB3400B2407A /* GateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834CC62E2357BB3400B2407A /* GateTableViewCell.xib */; };
+		834CC632235E568A00B2407A /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC631235E568A00B2407A /* extensions.swift */; };
 		835C06722353AB0000B723BA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 835C06712353AB0000B723BA /* Podfile */; };
 		835C06762353AC9B00B723BA /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C06752353AC9B00B723BA /* Gate.swift */; };
 		835C06782353ACA800B723BA /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C06772353ACA800B723BA /* Flight.swift */; };
@@ -59,7 +60,8 @@
 		834CC62B23566F6D00B2407A /* Airport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		834CC62D2357BB3400B2407A /* GateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GateTableViewCell.swift; path = gatewait/ViewController/GateTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		834CC62E2357BB3400B2407A /* GateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GateTableViewCell.xib; path = gatewait/ViewController/GateTableViewCell.xib; sourceTree = SOURCE_ROOT; };
-		835C06712353AB0000B723BA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		834CC631235E568A00B2407A /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = extensions.swift; path = gatewait/extensions.swift; sourceTree = SOURCE_ROOT; };
+		835C06712353AB0000B723BA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		835C06752353AC9B00B723BA /* Gate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		835C06772353ACA800B723BA /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		83BEFAB5234E773400CB0CDB /* gatewait.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gatewait.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 				835C067C2353AD0800B723BA /* ViewController */,
 				83BEFAB8234E773400CB0CDB /* AppDelegate.swift */,
 				83BEFABA234E773400CB0CDB /* SceneDelegate.swift */,
+				834CC631235E568A00B2407A /* extensions.swift */,
 				83BEFAC6234E773A00CB0CDB /* Info.plist */,
 			);
 			path = gatewait;
@@ -475,6 +478,7 @@
 				8334B15823538A5200CFBD3B /* GatesVC.swift in Sources */,
 				834CC62C23566F6D00B2407A /* Airport.swift in Sources */,
 				835C06762353AC9B00B723BA /* Gate.swift in Sources */,
+				834CC632235E568A00B2407A /* extensions.swift in Sources */,
 				83BEFABB234E773400CB0CDB /* SceneDelegate.swift in Sources */,
 				834CC62F2357BB3400B2407A /* GateTableViewCell.swift in Sources */,
 				835C06782353ACA800B723BA /* Flight.swift in Sources */,

@@ -7,6 +7,7 @@ target 'gatewait' do
 
   # Pods for gatewait
   pod 'RealmSwift'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'gatewaitTests' do
     inherit! :search_paths

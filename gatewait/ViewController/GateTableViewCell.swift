@@ -12,7 +12,8 @@ class GateTableViewCell: UITableViewCell {
     
     @IBOutlet weak var gateLabel: UILabel!
     
-
+    @IBOutlet weak var flightsAmount: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

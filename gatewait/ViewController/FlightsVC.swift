@@ -41,7 +41,7 @@ class FlightsVC: UIViewController, UITextFieldDelegate {
         if (segue.identifier == "openGates") {
             let vc = segue.destination as! GatesVC
             if let gates = self.foundGates {
-                vc.gates = gates
+                vc.gates = Array<Gate>(gates)
             }
         }
     }
