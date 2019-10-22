@@ -20,6 +20,7 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var dataSourceLabel: UILabel!
+    @IBOutlet weak var mainGateBackgroundView: UIImageView!
     
     
     
@@ -59,10 +60,33 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let url = URL(string: "https://www.flightstats.com/v2/api-next/flight-tracker/" + airline + "/" + flightCode + "/" + year + "/" + month + "/" + day)!
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             if let json = try? JSONSerialization.jsonObject(with: data!, options: []) {
-                print(json)
+                if let dictionary = json as? [String: Any] {
+                    if let data = dictionary["data"] as? [String: Any] {
+                        if let isLanded = data["isLanded"] as? Int {
+                            if isLanded == 0 {
+                                 if let airport = data["departureAirport"] as? [String: Any] {
+                                    if let gate = airport["gate"] as? String {
+                                        self.switchToLiveMode(gate)
+                            }
+                        }
+                    }
+                }
             }
+                }
+        }
         })
         task.resume()
+    }
+    
+    func switchToLiveMode(_ gateNumber: String) {
+        print(gateNumber)
+        DispatchQueue.main.async { // Make sure you're on the main thread here
+            self.mainGateBackgroundView.image = UIImage(named: "live_background")
+            self.mainGateLabel.text = gateNumber
+            self.dataSourceLabel.text = "Live data"
+            self.dataSourceLabel.textColor = UIColor(rgb: 0x5AD042)
+            self.dataSourceLabel.backgroundColor = UIColor(rgb: 0x90FF7A)
+        }
     }
     
     func setGates() {

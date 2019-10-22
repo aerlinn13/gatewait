@@ -204,6 +204,7 @@
                         <outlet property="flightNameLabel" destination="hn1-wj-JgR" id="Kjz-Td-CU2"/>
                         <outlet property="gatesTableView" destination="t4h-F7-NnU" id="Sq5-e7-ET1"/>
                         <outlet property="mainGateAmountLabel" destination="FPe-0V-ezz" id="6De-gc-Fmw"/>
+                        <outlet property="mainGateBackgroundView" destination="VoD-Ac-bUr" id="nrH-SS-uDx"/>
                         <outlet property="mainGateLabel" destination="DsS-BK-5JD" id="b4b-5C-57j"/>
                     </connections>
                 </viewController>
