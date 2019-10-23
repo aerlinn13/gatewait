@@ -42,3 +42,15 @@ extension UIColor {
        )
    }
 }
+
+extension UIView {
+    func rotateView(duration: CFTimeInterval = 1) {
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(Double.pi * 2)
+        rotateAnimation.isRemovedOnCompletion = false
+        rotateAnimation.duration = duration
+        rotateAnimation.repeatCount=Float.infinity
+        self.layer.add(rotateAnimation, forKey: nil)
+    }
+}

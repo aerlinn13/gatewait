@@ -9,16 +9,24 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
+import Loaf
 
 class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var flightNameLabel: UILabel!
     @IBOutlet weak var mainGateLabel: UILabel!
     @IBOutlet weak var mainGateAmountLabel: UILabel!
-    @IBOutlet weak var gatesTableView: UITableView!
+    @IBOutlet weak var mainGateAmountStack: UIStackView!
+    @IBOutlet weak var ReloadButtonOutlet: UIButton!
+    @IBAction func ReloadButton(_ sender: Any) {
+        self.getLiveData()
+    }
+    
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBOutlet weak var gatesTableView: UITableView!
     @IBOutlet weak var dataSourceLabel: UILabel!
     @IBOutlet weak var mainGateBackgroundView: UIImageView!
     
@@ -30,6 +38,7 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return try! Realm()
     }()
     var flightId: String?
+    var loading = false
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gates!.count
@@ -49,6 +58,14 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func getLiveData() {
+        if loading {
+            return
+        }
+        loading = true
+
+        self.ReloadButtonOutlet.rotateView()
+        self.switchToParsingMode()
+
         let session = URLSession.shared
         let date = Date()
         let airline = flightId!.letters
@@ -59,33 +76,79 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         let url = URL(string: "https://www.flightstats.com/v2/api-next/flight-tracker/" + airline + "/" + flightCode + "/" + year + "/" + month + "/" + day)!
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
+            if (error != nil) {
+                self.switchToHistoricalMode()
+            }
             if let json = try? JSONSerialization.jsonObject(with: data!, options: []) {
                 if let dictionary = json as? [String: Any] {
+                    print(dictionary)
                     if let data = dictionary["data"] as? [String: Any] {
                         if let isLanded = data["isLanded"] as? Int {
                             if isLanded == 0 {
                                  if let airport = data["departureAirport"] as? [String: Any] {
                                     if let gate = airport["gate"] as? String {
                                         self.switchToLiveMode(gate)
-                            }
+                                    } else {
+                                        self.switchToHistoricalMode()
+                                    }
                         }
+                            }
+                }
+                    } else {
+                        self.switchToHistoricalMode()
                     }
                 }
             }
-                }
-        }
         })
         task.resume()
     }
     
+    func switchToParsingMode() {
+        DispatchQueue.main.async {
+            
+            UIView.transition(with: self.dataSourceLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.dataSourceLabel.text = "Connecting to \(self.mainGate!.airport)"
+            }, completion: nil)
+        }
+    }
+    
+    func switchToHistoricalMode() {
+        DispatchQueue.main.async {
+            UIView.transition(with: self.dataSourceLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                self.dataSourceLabel.text = "Historical data"
+                self.dataSourceLabel.textColor = UIColor(rgb: 0xFEB901)
+                self.dataSourceLabel.backgroundColor = UIColor(rgb: 0xFFD86E)
+            }, completion: { finished in
+                self.ReloadButtonOutlet.layer.removeAllAnimations()
+                Loaf("Gate not available", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Myriad Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .bottom,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(2.75))
+            })
+            self.loading = false
+        }
+    }
+    
     func switchToLiveMode(_ gateNumber: String) {
         print(gateNumber)
-        DispatchQueue.main.async { // Make sure you're on the main thread here
-            self.mainGateBackgroundView.image = UIImage(named: "live_background")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            UIView.transition(with: self.mainGateBackgroundView, duration: 0.75, options: .transitionCrossDissolve, animations: {
+                self.mainGateBackgroundView.image = UIImage(named: "live_background")
+            }, completion: nil)
+            
+            UIView.transition(with: self.dataSourceLabel, duration: 0.75, options: .transitionCrossDissolve, animations: {
+                self.dataSourceLabel.text = "Connected to \(self.mainGate!.airport)"
+                self.dataSourceLabel.textColor = UIColor(rgb: 0x5AD042)
+                self.dataSourceLabel.backgroundColor = UIColor(rgb: 0x90FF7A)
+            }, completion: nil)
+            
+            UIView.transition(with: self.mainGateAmountStack, duration: 1.25, options: .transitionCrossDissolve, animations: {
+                self.mainGateAmountStack.isHidden = true
+            }, completion: nil)
+            
             self.mainGateLabel.text = gateNumber
-            self.dataSourceLabel.text = "Live data"
-            self.dataSourceLabel.textColor = UIColor(rgb: 0x5AD042)
-            self.dataSourceLabel.backgroundColor = UIColor(rgb: 0x90FF7A)
+            DispatchQueue.main.async {
+            self.ReloadButtonOutlet.layer.removeAllAnimations()
+            self.loading = false
+            }
+            
         }
     }
     

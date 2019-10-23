@@ -1,4 +1,5 @@
 PODS:
+  - Loaf (0.5.0)
   - Realm (3.19.0):
     - Realm/Headers (= 3.19.0)
   - Realm/Headers (3.19.0)
@@ -7,20 +8,23 @@ PODS:
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
+  - Loaf
   - RealmSwift
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
+    - Loaf
     - Realm
     - RealmSwift
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Loaf: 0800b444431366bc395d54267975d4ad4ad5c99c
   Realm: 995d585bcf699aaff226715886c849a29dd3d07f
   RealmSwift: 35f284a537989f2187b413e5917091948cb87a3f
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 9c6042a001bc72ffb5747bb1e1867935b6519d17
+PODFILE CHECKSUM: 4e36dc06a4f71465c6d1d2608d3cc8d2d3bfb196
 
 COCOAPODS: 1.8.3

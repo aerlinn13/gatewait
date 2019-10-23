@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import Loaf
 
 class FlightsVC: UIViewController, UITextFieldDelegate {
     
@@ -32,7 +33,7 @@ class FlightsVC: UIViewController, UITextFieldDelegate {
                 foundGates = gates
                 performSegue(withIdentifier: "openGates", sender: self)
             } else {
-                print("no gates found")
+                Loaf("Flight not found", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Myriad Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .top,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(0.75))
             }
         }
     }
