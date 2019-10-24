@@ -16,11 +16,12 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var flightNameLabel: UILabel!
     @IBOutlet weak var mainGateLabel: UILabel!
     @IBOutlet weak var mainGateAmountLabel: UILabel!
-    @IBOutlet weak var mainGateAmountStack: UIStackView!
     @IBOutlet weak var ReloadButtonOutlet: UIButton!
     @IBAction func ReloadButton(_ sender: Any) {
         self.getLiveData()
     }
+    @IBOutlet weak var flightSign: UIImageView!
+    @IBOutlet weak var flightAmount: UILabel!
     
     @IBAction func closeButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -30,13 +31,13 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var dataSourceLabel: UILabel!
     @IBOutlet weak var mainGateBackgroundView: UIImageView!
     
-    
-    
-    var gates: Array<Gate>?
-    var mainGate: Gate?
     lazy var realm: Realm = {
         return try! Realm()
     }()
+    
+    var gates: Array<Gate>?
+    var mainGate: Gate?
+    var flightsTotal = 0
     var flightId: String?
     var loading = false
     
@@ -48,7 +49,8 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GateTableViewCell") as! GateTableViewCell
         if let gate = gates?[indexPath.row] {
             cell.gateLabel.text = gate.id.replacingOccurrences(of: "*", with: "")
-            cell.flightsAmount.text = String(gate.amount)
+            let percentage = Double(gate.amount) / Double(self.flightsTotal) * 100
+            cell.flightsAmount.text = String(Int(percentage.rounded())) + "%"
         }
         return cell
     }
@@ -66,7 +68,10 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.ReloadButtonOutlet.rotateView()
         self.switchToParsingMode()
 
-        let session = URLSession.shared
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = TimeInterval(5)
+        configuration.timeoutIntervalForResource = TimeInterval(5)
+        let session = URLSession(configuration: configuration)
         let date = Date()
         let airline = flightId!.letters
         let flightCode = flightId!.digits
@@ -81,7 +86,6 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             if let json = try? JSONSerialization.jsonObject(with: data!, options: []) {
                 if let dictionary = json as? [String: Any] {
-                    print(dictionary)
                     if let data = dictionary["data"] as? [String: Any] {
                         if let isLanded = data["isLanded"] as? Int {
                             if isLanded == 0 {
@@ -92,6 +96,8 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                         self.switchToHistoricalMode()
                                     }
                         }
+                            } else {
+                                self.switchToHistoricalMode()
                             }
                 }
                     } else {
@@ -105,7 +111,6 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func switchToParsingMode() {
         DispatchQueue.main.async {
-            
             UIView.transition(with: self.dataSourceLabel, duration: 0.5, options: .transitionCrossDissolve, animations: {
                 self.dataSourceLabel.text = "Connecting to \(self.mainGate!.airport)"
             }, completion: nil)
@@ -127,7 +132,6 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func switchToLiveMode(_ gateNumber: String) {
-        print(gateNumber)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.transition(with: self.mainGateBackgroundView, duration: 0.75, options: .transitionCrossDissolve, animations: {
                 self.mainGateBackgroundView.image = UIImage(named: "live_background")
@@ -139,8 +143,12 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.dataSourceLabel.backgroundColor = UIColor(rgb: 0x90FF7A)
             }, completion: nil)
             
-            UIView.transition(with: self.mainGateAmountStack, duration: 1.25, options: .transitionCrossDissolve, animations: {
-                self.mainGateAmountStack.isHidden = true
+            UIView.transition(with: self.flightSign, duration: 1.25, options: .transitionCrossDissolve, animations: {
+                self.flightSign.isHidden = true
+            }, completion: nil)
+            
+            UIView.transition(with: self.flightAmount, duration: 1.25, options: .transitionCrossDissolve, animations: {
+                self.flightAmount.isHidden = true
             }, completion: nil)
             
             self.mainGateLabel.text = gateNumber
@@ -156,8 +164,10 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         var foundGates = Array<Gate>(gates!)
         foundGates = foundGates.sorted(by: { $0.amount > $1.amount })
         mainGate = foundGates[0]
+        self.flightsTotal = Array<Gate>(foundGates).map({$0.amount}).reduce(0, +)
         self.mainGateLabel.text = mainGate!.id.replacingOccurrences(of: "*", with: "")
-        self.mainGateAmountLabel.text = String(mainGate!.amount)
+        let percentage = Double(mainGate!.amount) / Double(self.flightsTotal) * 100
+        mainGateAmountLabel.text = String(Int(percentage.rounded())) + "%"
         var flightName = mainGate!.flight
         let flight = realm.objects(Flight.self).filter("id = '\(mainGate!.flight)'")
         if flight.count > 0 {
@@ -171,27 +181,14 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func decorateScreen() {
         dataSourceLabel.layer.cornerRadius = 5
+        self.gatesTableView.backgroundColor = .white
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        gatesTableView.register(UINib(nibName: "GateTableViewCell", bundle: nil), forCellReuseIdentifier: "GateTableViewCell")
         setGates()
+        gatesTableView.register(UINib(nibName: "GateTableViewCell", bundle: nil), forCellReuseIdentifier: "GateTableViewCell")
         decorateScreen()
         getLiveData()
-        
-        // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
