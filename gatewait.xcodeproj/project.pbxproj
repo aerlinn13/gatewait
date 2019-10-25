@@ -10,8 +10,6 @@
 		6CA00BBD135EA62A7BBE50A8 /* Pods_gatewait_gatewaitUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D923D4CDC54B4E3A37D769B9 /* Pods_gatewait_gatewaitUITests.framework */; };
 		8334B1562353896000CFBD3B /* FlightsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334B1552353896000CFBD3B /* FlightsVC.swift */; };
 		8334B15823538A5200CFBD3B /* GatesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8334B15723538A5200CFBD3B /* GatesVC.swift */; };
-		834CC628235657DC00B2407A /* MyriadPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8334B15223504CD900CFBD3B /* MyriadPro-Bold.otf */; };
-		834CC62A2356635700B2407A /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 834CC6292356635700B2407A /* db.realm */; };
 		834CC62C23566F6D00B2407A /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC62B23566F6D00B2407A /* Airport.swift */; };
 		834CC62F2357BB3400B2407A /* GateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834CC62D2357BB3400B2407A /* GateTableViewCell.swift */; };
 		834CC6302357BB3400B2407A /* GateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834CC62E2357BB3400B2407A /* GateTableViewCell.xib */; };
@@ -21,6 +19,15 @@
 		835C06782353ACA800B723BA /* Flight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835C06772353ACA800B723BA /* Flight.swift */; };
 		83B91F9023623F0100BF4C89 /* AuthorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B91F8E23623F0100BF4C89 /* AuthorTableViewCell.swift */; };
 		83B91F9123623F0100BF4C89 /* AuthorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F8F23623F0100BF4C89 /* AuthorTableViewCell.xib */; };
+		83B91F93236351AA00BF4C89 /* db.realm in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F92236351AA00BF4C89 /* db.realm */; };
+		83B91F9C2363566C00BF4C89 /* grapheinpro-italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F942363566B00BF4C89 /* grapheinpro-italic.otf */; };
+		83B91F9D2363566C00BF4C89 /* grapheinpro-bolditalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F952363566B00BF4C89 /* grapheinpro-bolditalic.otf */; };
+		83B91F9E2363566C00BF4C89 /* grapheinpro-black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F962363566B00BF4C89 /* grapheinpro-black.otf */; };
+		83B91F9F2363566C00BF4C89 /* grapheinpro-bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F972363566B00BF4C89 /* grapheinpro-bold.otf */; };
+		83B91FA02363566C00BF4C89 /* grapheinpro-book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F982363566B00BF4C89 /* grapheinpro-book.otf */; };
+		83B91FA12363566C00BF4C89 /* grapheinpro-blackitalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F992363566B00BF4C89 /* grapheinpro-blackitalic.otf */; };
+		83B91FA22363566C00BF4C89 /* grapheinpro-light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F9A2363566B00BF4C89 /* grapheinpro-light.otf */; };
+		83B91FA32363566C00BF4C89 /* grapheinpro-lightitalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 83B91F9B2363566B00BF4C89 /* grapheinpro-lightitalic.otf */; };
 		83BEFAB9234E773400CB0CDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BEFAB8234E773400CB0CDB /* AppDelegate.swift */; };
 		83BEFABB234E773400CB0CDB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BEFABA234E773400CB0CDB /* SceneDelegate.swift */; };
 		83BEFAC0234E773400CB0CDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83BEFABE234E773400CB0CDB /* Main.storyboard */; };
@@ -55,10 +62,8 @@
 		4266EE4AC491A2D7E9E38198 /* Pods-gatewait.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gatewait.debug.xcconfig"; path = "Target Support Files/Pods-gatewait/Pods-gatewait.debug.xcconfig"; sourceTree = "<group>"; };
 		79ED2EC09D1A99E72AC3EC03 /* Pods-gatewaitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gatewaitTests.release.xcconfig"; path = "Target Support Files/Pods-gatewaitTests/Pods-gatewaitTests.release.xcconfig"; sourceTree = "<group>"; };
 		8047EF932CD19D095EFB7C4A /* Pods-gatewait-gatewaitUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gatewait-gatewaitUITests.release.xcconfig"; path = "Target Support Files/Pods-gatewait-gatewaitUITests/Pods-gatewait-gatewaitUITests.release.xcconfig"; sourceTree = "<group>"; };
-		8334B15223504CD900CFBD3B /* MyriadPro-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MyriadPro-Bold.otf"; sourceTree = "<group>"; };
 		8334B1552353896000CFBD3B /* FlightsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsVC.swift; sourceTree = "<group>"; };
 		8334B15723538A5200CFBD3B /* GatesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatesVC.swift; sourceTree = "<group>"; };
-		834CC6292356635700B2407A /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
 		834CC62B23566F6D00B2407A /* Airport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
 		834CC62D2357BB3400B2407A /* GateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GateTableViewCell.swift; path = gatewait/ViewController/GateTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		834CC62E2357BB3400B2407A /* GateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GateTableViewCell.xib; path = gatewait/ViewController/GateTableViewCell.xib; sourceTree = SOURCE_ROOT; };
@@ -68,6 +73,15 @@
 		835C06772353ACA800B723BA /* Flight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flight.swift; sourceTree = "<group>"; };
 		83B91F8E23623F0100BF4C89 /* AuthorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorTableViewCell.swift; sourceTree = "<group>"; };
 		83B91F8F23623F0100BF4C89 /* AuthorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorTableViewCell.xib; sourceTree = "<group>"; };
+		83B91F92236351AA00BF4C89 /* db.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = db.realm; sourceTree = "<group>"; };
+		83B91F942363566B00BF4C89 /* grapheinpro-italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-italic.otf"; sourceTree = "<group>"; };
+		83B91F952363566B00BF4C89 /* grapheinpro-bolditalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-bolditalic.otf"; sourceTree = "<group>"; };
+		83B91F962363566B00BF4C89 /* grapheinpro-black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-black.otf"; sourceTree = "<group>"; };
+		83B91F972363566B00BF4C89 /* grapheinpro-bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-bold.otf"; sourceTree = "<group>"; };
+		83B91F982363566B00BF4C89 /* grapheinpro-book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-book.otf"; sourceTree = "<group>"; };
+		83B91F992363566B00BF4C89 /* grapheinpro-blackitalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-blackitalic.otf"; sourceTree = "<group>"; };
+		83B91F9A2363566B00BF4C89 /* grapheinpro-light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-light.otf"; sourceTree = "<group>"; };
+		83B91F9B2363566B00BF4C89 /* grapheinpro-lightitalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "grapheinpro-lightitalic.otf"; sourceTree = "<group>"; };
 		83BEFAB5234E773400CB0CDB /* gatewait.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gatewait.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83BEFAB8234E773400CB0CDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83BEFABA234E773400CB0CDB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +132,14 @@
 		835C06742353ABB600B723BA /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				8334B15223504CD900CFBD3B /* MyriadPro-Bold.otf */,
+				83B91F962363566B00BF4C89 /* grapheinpro-black.otf */,
+				83B91F992363566B00BF4C89 /* grapheinpro-blackitalic.otf */,
+				83B91F972363566B00BF4C89 /* grapheinpro-bold.otf */,
+				83B91F952363566B00BF4C89 /* grapheinpro-bolditalic.otf */,
+				83B91F982363566B00BF4C89 /* grapheinpro-book.otf */,
+				83B91F942363566B00BF4C89 /* grapheinpro-italic.otf */,
+				83B91F9A2363566B00BF4C89 /* grapheinpro-light.otf */,
+				83B91F9B2363566B00BF4C89 /* grapheinpro-lightitalic.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -181,7 +202,7 @@
 		83BEFAB7234E773400CB0CDB /* gatewait */ = {
 			isa = PBXGroup;
 			children = (
-				834CC6292356635700B2407A /* db.realm */,
+				83B91F92236351AA00BF4C89 /* db.realm */,
 				83BEFAC1234E773A00CB0CDB /* Assets.xcassets */,
 				835C06742353ABB600B723BA /* Fonts */,
 				835C067B2353ACBE00B723BA /* Model */,
@@ -346,13 +367,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				834CC6302357BB3400B2407A /* GateTableViewCell.xib in Resources */,
-				834CC628235657DC00B2407A /* MyriadPro-Bold.otf in Resources */,
-				834CC62A2356635700B2407A /* db.realm in Resources */,
 				835C06722353AB0000B723BA /* Podfile in Resources */,
+				83B91F9F2363566C00BF4C89 /* grapheinpro-bold.otf in Resources */,
+				83B91FA12363566C00BF4C89 /* grapheinpro-blackitalic.otf in Resources */,
+				83B91F9D2363566C00BF4C89 /* grapheinpro-bolditalic.otf in Resources */,
 				83BEFAC5234E773A00CB0CDB /* LaunchScreen.storyboard in Resources */,
+				83B91FA32363566C00BF4C89 /* grapheinpro-lightitalic.otf in Resources */,
 				83BEFAC2234E773A00CB0CDB /* Assets.xcassets in Resources */,
+				83B91FA02363566C00BF4C89 /* grapheinpro-book.otf in Resources */,
+				83B91F93236351AA00BF4C89 /* db.realm in Resources */,
 				83B91F9123623F0100BF4C89 /* AuthorTableViewCell.xib in Resources */,
+				83B91F9E2363566C00BF4C89 /* grapheinpro-black.otf in Resources */,
 				83BEFAC0234E773400CB0CDB /* Main.storyboard in Resources */,
+				83B91FA22363566C00BF4C89 /* grapheinpro-light.otf in Resources */,
+				83B91F9C2363566C00BF4C89 /* grapheinpro-italic.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

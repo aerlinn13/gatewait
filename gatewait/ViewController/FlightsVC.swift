@@ -33,9 +33,17 @@ class FlightsVC: UIViewController, UITextFieldDelegate {
                 foundGates = gates
                 performSegue(withIdentifier: "openGates", sender: self)
             } else {
-                Loaf("Flight not found", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Myriad Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .top,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(0.75))
+                Loaf("Flight not found", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Graphein Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .top,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(0.75))
             }
         }
+    }
+    
+    func setPlaceholder() {
+        let flights = realm.objects(Flight.self)
+        let flightsArray = Array<Flight>(flights)
+        let number = Int.random(in: 0 ... flightsArray.count - 1)
+        let flight = flightsArray[number]
+        flightNumberField.placeholder = flight.id
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -50,6 +58,7 @@ class FlightsVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setPlaceholder()
         findGatesButtonOutlet.layer.cornerRadius = 5
         flightNumberField.textAlignment = .center
         flightNumberField.becomeFirstResponder()

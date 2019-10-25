@@ -18,7 +18,7 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var mainGateAmountLabel: UILabel!
     @IBOutlet weak var ReloadButtonOutlet: UIButton!
     @IBAction func ReloadButton(_ sender: Any) {
-        self.getLiveData()
+        self.getLiveData(tomorrow: false)
     }
     @IBOutlet weak var flightSign: UIImageView!
     @IBOutlet weak var flightAmount: UILabel!
@@ -42,11 +42,16 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var loading = false
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gates!.count
+        return gates!.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GateTableViewCell") as! GateTableViewCell
+        cell.selectionStyle = .none
+        let authorCell = tableView.dequeueReusableCell(withIdentifier: "AuthorTableViewCell") as! AuthorTableViewCell
+        authorCell.selectionStyle = .none
+        if indexPath.row == gates!.count { return authorCell }
+
         if let gate = gates?[indexPath.row] {
             cell.gateLabel.text = gate.id.replacingOccurrences(of: "*", with: "")
             let percentage = Double(gate.amount) / Double(self.flightsTotal) * 100
@@ -59,30 +64,58 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return 100
     }
     
-    func getLiveData() {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == gates!.count {
+            let subject = "Inquiry"
+            let coded = "mailto:daniel@lindir.co.uk?subject=\(subject)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+
+            if let emailURL: NSURL = NSURL(string: coded!) {
+                if UIApplication.shared.canOpenURL(emailURL as URL) {
+                    UIApplication.shared.openURL(emailURL as URL)
+                }
+            }
+        }
+    }
+    
+    func getLiveData(tomorrow: Bool) {
         if loading {
             return
         }
         loading = true
-
+        
+        DispatchQueue.main.async {
         self.ReloadButtonOutlet.rotateView()
         self.switchToParsingMode()
+        }
 
+        let airline = flightId!.letters
+        let flightCode = flightId!.digits
+        let date = Date()
+
+        if tomorrow {
+            let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
+            getGates(airline: airline, flightCode: flightCode, date: tomorrowDate!)
+        } else {
+            getGates(airline: airline, flightCode: flightCode, date: date)
+        }
+        
+        
+    }
+    
+    func getGates(airline: String, flightCode: String, date: Date) {
+        print(date)
+        let year = String(date.year)
+        let month = String(date.month)
+        let day = String(date.day)
         let configuration = URLSessionConfiguration.default
         configuration.timeoutIntervalForRequest = TimeInterval(5)
         configuration.timeoutIntervalForResource = TimeInterval(5)
         let session = URLSession(configuration: configuration)
-        let date = Date()
-        let airline = flightId!.letters
-        let flightCode = flightId!.digits
-        let year = String(date.year)
-        let month = String(date.month)
-        let day = String(date.day)
-        
         let url = URL(string: "https://www.flightstats.com/v2/api-next/flight-tracker/" + airline + "/" + flightCode + "/" + year + "/" + month + "/" + day)!
         let task = session.dataTask(with: url, completionHandler: { data, response, error in
             if (error != nil) {
                 self.switchToHistoricalMode()
+                return
             }
             if let json = try? JSONSerialization.jsonObject(with: data!, options: []) {
                 if let dictionary = json as? [String: Any] {
@@ -97,13 +130,20 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                                     }
                         }
                             } else {
-                                self.switchToHistoricalMode()
+                                self.loading = false
+                                self.getLiveData(tomorrow: true)
                             }
-                }
+                        } else {
+                            self.switchToHistoricalMode()
+                        }
                     } else {
                         self.switchToHistoricalMode()
                     }
+                } else {
+                    self.switchToHistoricalMode()
                 }
+            } else {
+                self.switchToHistoricalMode()
             }
         })
         task.resume()
@@ -125,7 +165,7 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.dataSourceLabel.backgroundColor = UIColor(rgb: 0xFFD86E)
             }, completion: { finished in
                 self.ReloadButtonOutlet.layer.removeAllAnimations()
-                Loaf("Gate not available", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Myriad Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .bottom,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(2.75))
+                Loaf("Gate not available", state: .custom(.init(backgroundColor: .black, font: UIFont(name: "Graphein Pro", size: 18.0)!, icon: nil, textAlignment: .center)), location: .bottom,  presentingDirection: .vertical, dismissingDirection: .vertical, sender: self).show(.custom(2.75))
             })
             self.loading = false
         }
@@ -188,7 +228,8 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         setGates()
         gatesTableView.register(UINib(nibName: "GateTableViewCell", bundle: nil), forCellReuseIdentifier: "GateTableViewCell")
+        gatesTableView.register(UINib(nibName: "AuthorTableViewCell", bundle: nil), forCellReuseIdentifier: "AuthorTableViewCell")
         decorateScreen()
-        getLiveData()
+        getLiveData(tomorrow: false)
     }
 }

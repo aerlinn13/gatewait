@@ -28,7 +28,7 @@ var window: UIWindow?
     let fileManager = FileManager.default
         
     let config = Realm.Configuration(
-        schemaVersion: 9,
+        schemaVersion: 10,
         migrationBlock: { migration, oldSchemaVersion in
             if (oldSchemaVersion < 1) {
             }
