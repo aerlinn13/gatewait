@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SwiftyJSON
 import Loaf
+import StoreKit
 
 class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -24,6 +25,9 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var flightAmount: UILabel!
     
     @IBAction func closeButton(_ sender: Any) {
+        if willShowReview {
+            SKStoreReviewController.requestReview()
+        }
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -40,6 +44,7 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var flightsTotal = 0
     var flightId: String?
     var loading = false
+    var willShowReview = false
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gates!.count + 1
@@ -84,7 +89,9 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         loading = true
         
         DispatchQueue.main.async {
-        self.ReloadButtonOutlet.rotateView()
+            if !tomorrow {
+                self.ReloadButtonOutlet.rotateView()
+            }
         self.switchToParsingMode()
         }
 
@@ -207,6 +214,9 @@ class GatesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.flightsTotal = Array<Gate>(foundGates).map({$0.amount}).reduce(0, +)
         self.mainGateLabel.text = mainGate!.id.replacingOccurrences(of: "*", with: "")
         let percentage = Double(mainGate!.amount) / Double(self.flightsTotal) * 100
+        if Int(percentage.rounded()) > 60 {
+            self.willShowReview = true
+        }
         mainGateAmountLabel.text = String(Int(percentage.rounded())) + "%"
         var flightName = mainGate!.flight
         let flight = realm.objects(Flight.self).filter("id = '\(mainGate!.flight)'")

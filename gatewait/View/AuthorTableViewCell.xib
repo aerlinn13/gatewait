@@ -28,7 +28,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFq-Kd-4cz">
                                 <rect key="frame" x="10" y="10" width="300" height="76"/>
                                 <string key="text">Made by Lindir in London with ❤️
-We build products from best ideas.
+We build products from the best ideas.
 Tap to talk to us about yours.</string>
                                 <fontDescription key="fontDescription" name="GrapheinPro-Book" family="Graphein Pro" pointSize="15"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
